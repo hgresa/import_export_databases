@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <form id="database-form" method="post" action="">
+        <div class="export-credentials">
+            <h2>Export Database</h2>
+            <div class="database-credentials">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="export-database-host">Database Host</label>
+                        <input type="text" class="form-control form-control-sm" name="export-database-host"
+                               id="export-database-host">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="export-database-port">Database Port</label>
+                        <input type="text" class="form-control form-control-sm" name="export-database-port"
+                               id="export-database-port" value="3306">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="export-database-username">Database Username</label>
+                        <input type="text" class="form-control form-control-sm" name="export-database-username"
+                               id="export-database-username">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="export-database-password">Database Password</label>
+                        <input type="text" class="form-control form-control-sm" name="export-database-password"
+                               id="export-database-password">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="export-database-name">Database name</label>
+                        <input type="text" class="form-control form-control-sm" name="export-database-name"
+                               id="export-database-name">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="export-file-path">Export File Path</label>
+                        <input type="text" class="form-control form-control-sm" name="export-file-path" id="export-file-path">
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="export-ssh-needed">Need An SSH Access?</label>
+                    <select id="export-ssh-needed" name="export-ssh-needed" class="form-select form-select-sm">
+                        <option value="export-ssh-no">No</option>
+                        <option value="export-ssh-yes">Yes</option>
+                    </select>
+                </div>
+            </div>
+            <div class="export-ssh-credentials hidden">
+                <small class="form-text text-muted">
+                    Use SSH credentials only if database to export does not allow remote access
+                </small>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="export-ssh-username">SSH Username</label>
+                        <input type="text" class="form-control form-control-sm" name="export-ssh-username"
+                               id="export-ssh-username">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="export-ssh-host">SSH Host</label>
+                        <input type="text" class="form-control form-control-sm" name="export-ssh-host"
+                               id="export-ssh-host">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="export-ssh-port">SSH Port</label>
+                        <input type="text" class="form-control form-control-sm" name="export-ssh-port"
+                               id="export-ssh-port"
+                               value="22">
+                    </div>
+                    <div class="col">
+                        <label for="export-ssh-auth-method">SSH Authentication Method</label>
+                        <select id="export-ssh-auth-method" name="export-ssh-auth-method"
+                                class="form-select form-select-sm">
+                            <option selected></option>
+                            <option value="export-ssh-password">Password</option>
+                            <option value="export-ssh-key-path">SSH Key</option>
+                        </select>
+                    </div>
+                    <div class="col hidden">
+                        <label for="export-ssh-password">Password</label>
+                        <input type="text" class="form-control form-control-sm" name="export-ssh-password"
+                               id="export-ssh-password">
+                    </div>
+                    <div class="col hidden">
+                        <label for="export-ssh-key-path">Path to the public Key</label>
+                        <input type="text" class="form-control form-control-sm" name="export-ssh-key-path"
+                               id="export-ssh-key-path">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="middle">
+            <div>
+                <label for="job-name">Job Name</label>
+                <input type="text" class="form-control form-control-sm" name="job-name"
+                       id="job-name">
+            </div>
+            <button type="button" id="submit" class="btn btn-success">Save</button>
+        </div>
+        <div class="import-credentials">
+            <h2>Import Database</h2>
+            <div class="database-credentials">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="import-database-host">Database Host</label>
+                        <input type="text" class="form-control form-control-sm" name="import-database-host"
+                               id="import-database-host">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="import-database-port">Database Port</label>
+                        <input type="text" class="form-control form-control-sm" name="import-database-port"
+                               id="import-database-port" value="3306">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="import-database-username">Database Username</label>
+                        <input type="text" class="form-control form-control-sm" name="import-database-username"
+                               id="import-database-username">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="import-database-password">Database Password</label>
+                        <input type="text" class="form-control form-control-sm" name="import-database-password"
+                               id="import-database-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="import-database-name">Database name</label>
+                        <input type="text" class="form-control form-control-sm" name="import-database-name"
+                               id="import-database-name">
+                    </div>
+                    <div class="col-mb-3">
+                        <label for="import-additional-sql" class="form-label">Additional SQL</label>
+                        <textarea class="form-control" id="import-additional-sql" name="import-additional-sql" rows="3"></textarea>
+                    </div>
+                    <div class="col">
+                        <label for="import-ssh-needed">Need An SSH Access?</label>
+                        <select id="import-ssh-needed" name="import-ssh-needed" class="form-select form-select-sm">
+                            <option value="import-ssh-no">No</option>
+                            <option value="import-ssh-yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="import-ssh-credentials hidden">
+                <small class="form-text text-muted">
+                    Use SSH credentials only if database to import into does not allow remote access
+                </small>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="import-ssh-username">SSH Username</label>
+                        <input type="text" class="form-control form-control-sm" name="import-ssh-username"
+                               id="import-ssh-username">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="import-ssh-host">SSH Host</label>
+                        <input type="text" class="form-control form-control-sm" name="import-ssh-host"
+                               id="import-ssh-host">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="import-ssh-port">SSH Port</label>
+                        <input type="text" class="form-control form-control-sm" name="import-ssh-port"
+                               id="import-ssh-port"
+                               value="22">
+                    </div>
+                    <div>
+                        <label for="import-ssh-home-directory">Absolute Path to Home Dir</label>
+                        <input type="text" class="form-control form-control-sm" name="import-ssh-home-directory" id="import-ssh-home-directory">
+                    </div>
+                    <div class="col">
+                        <label for="import-ssh-auth-method">SSH Authentication Method</label>
+                        <select id="import-ssh-auth-method" name="import-ssh-auth-method"
+                                class="form-select form-select-sm">
+                            <option selected></option>
+                            <option value="import-ssh-password">Password</option>
+                            <option value="import-ssh-key-path">SSH Key</option>
+                        </select>
+                    </div>
+                    <div class="col hidden">
+                        <label for="import-ssh-password">Password</label>
+                        <input type="text" class="form-control form-control-sm" name="import-ssh-password"
+                               id="import-ssh-password">
+                    </div>
+                    <div class="col hidden">
+                        <label for="import-ssh-key-path">Path to the public Key</label>
+                        <input type="text" class="form-control form-control-sm" name="import-ssh-key-path"
+                               id="import-ssh-key-path">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
